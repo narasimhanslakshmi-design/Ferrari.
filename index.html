@@ -7,7 +7,1433 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Oswald:wght@500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+    <style>
+/* ===========================================================
+   THEMES: bright (default) and night. Everything below uses
+   these variables, so switching theme changes the whole site.
+   =========================================================== */
+:root {
+    --red: #d40000;
+    --red-dark: #9a0000;
+    --bg: #fff7ef;
+    --bg-soft: #f6ece1;
+    --panel: #ffffff;
+    --panel-light: #f6eee5;
+    --border: #eadfd2;
+    --track: #eee3d6;
+    --text: #1b1b1f;
+    --text-soft: #44444c;
+    --muted: #6c6c75;
+    --green: #0d8a45;
+    --shadow: 0 10px 30px rgba(120, 70, 30, 0.12);
+    --shadow-hover: 0 18px 44px rgba(212, 0, 0, 0.22);
+    --nav-bg: rgba(255, 247, 239, 0.85);
+    --overlay: rgba(40, 25, 10, 0.55);
+
+    /* car picture placeholder */
+    --ph-bg:
+        radial-gradient(circle at 78% 18%, rgba(255, 255, 255, 0.55), transparent 55%),
+        linear-gradient(135deg, #ff7a5c, #d40000);
+    --ghost: rgba(255, 255, 255, 0.4);
+    --badge-bg: #ffffff;
+    --badge-text: #d40000;
+    --chip-bg: rgba(255, 255, 255, 0.9);
+    --chip-text: #1b1b1f;
+    --chip-border: rgba(0, 0, 0, 0.12);
+
+    /* hero text */
+    --hero-text: #14141a;
+    --hero-sub: #33425c;
+    --glass: rgba(255, 255, 255, 0.55);
+    --glass-border: rgba(255, 255, 255, 0.75);
+
+    /* scenery */
+    --sky-top: #46b0f0;
+    --sky-mid: #9ed9fb;
+    --sky-bottom: #ffe9c9;
+    --sun: #ffd54a;
+    --sun-glow: rgba(255, 213, 74, 0.65);
+    --cloud: #ffffff;
+    --cloud-op: 0.92;
+    --mount-far: #a9bbdc;
+    --mount-near: #7f98c6;
+    --hill: #66b555;
+    --tree: #2f7a3c;
+    --road: #3b3b43;
+    --road-edge: #ffffff;
+    --road-dash: #ffffff;
+    --stars: 0;
+    --beam: 0;
+}
+
+:root[data-theme="dark"] {
+    color-scheme: dark;
+    --bg: #0b0b0c;
+    --bg-soft: #121214;
+    --panel: #151517;
+    --panel-light: #1f1f22;
+    --border: #2c2c30;
+    --track: #222226;
+    --text: #f2f2f2;
+    --text-soft: #c7c7cc;
+    --muted: #9a9aa2;
+    --green: #4ade80;
+    --shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+    --shadow-hover: 0 16px 40px rgba(220, 0, 0, 0.2);
+    --nav-bg: rgba(11, 11, 12, 0.85);
+    --overlay: rgba(0, 0, 0, 0.8);
+
+    --ph-bg:
+        radial-gradient(circle at 70% 20%, rgba(220, 0, 0, 0.55), transparent 60%),
+        linear-gradient(135deg, #2a0000, #0f0f10);
+    --ghost: rgba(255, 255, 255, 0.12);
+    --badge-bg: #d40000;
+    --badge-text: #ffffff;
+    --chip-bg: rgba(0, 0, 0, 0.65);
+    --chip-text: #ffffff;
+    --chip-border: rgba(255, 255, 255, 0.3);
+
+    --hero-text: #ffffff;
+    --hero-sub: #b9b9d6;
+    --glass: rgba(0, 0, 0, 0.35);
+    --glass-border: rgba(255, 255, 255, 0.12);
+
+    --sky-top: #0a0e2e;
+    --sky-mid: #28204f;
+    --sky-bottom: #7a3f63;
+    --sun: #f1efe4;
+    --sun-glow: rgba(210, 215, 255, 0.35);
+    --cloud: #5a5686;
+    --cloud-op: 0.55;
+    --mount-far: #2e2b5c;
+    --mount-near: #201d46;
+    --hill: #11283b;
+    --tree: #0a1823;
+    --road: #1a1a1f;
+    --road-edge: #8a8a96;
+    --road-dash: #d9d9e3;
+    --stars: 1;
+    --beam: 0.35;
+}
+
+/* ---------- Basics ---------- */
+* {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: "Inter", Arial, sans-serif;
+    line-height: 1.5;
+    transition: background-color 0.4s, color 0.4s;
+}
+
+body.has-compare-bar {
+    padding-bottom: 90px;
+}
+
+/* ---------- Animations ---------- */
+@keyframes fadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(28px);
+    }
+}
+
+@keyframes rise {
+    from {
+        opacity: 0;
+        transform: translateY(24px);
+    }
+}
+
+.reveal {
+    opacity: 0;
+}
+
+.reveal.visible {
+    opacity: 1;
+    animation: fadeUp 0.6s ease backwards;
+}
+
+/* ---------- Top bar ---------- */
+.navbar {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 6%;
+    background: var(--nav-bg);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border);
+    transition: background-color 0.4s;
+}
+
+.logo {
+    font-family: "Oswald", sans-serif;
+    font-weight: 700;
+    letter-spacing: 3px;
+    color: var(--red);
+    font-size: 20px;
+}
+
+.logo span {
+    color: var(--text);
+    font-weight: 500;
+}
+
+.nav-right {
+    display: flex;
+    align-items: center;
+    gap: 26px;
+}
+
+.nav-links {
+    display: flex;
+    gap: 26px;
+}
+
+.nav-links a {
+    color: var(--text);
+    text-decoration: none;
+    font-size: 14px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+.nav-links a:hover {
+    color: var(--red);
+}
+
+.theme-toggle {
+    background: var(--panel);
+    color: var(--text);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 8px 16px;
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 600;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.theme-toggle:hover {
+    border-color: var(--red);
+    color: var(--red);
+}
+
+/* ===========================================================
+   HERO WITH MOVING SCENE
+   =========================================================== */
+.hero {
+    position: relative;
+    overflow: hidden;
+    min-height: max(680px, calc(100vh - 62px));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.scene {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    background: linear-gradient(180deg, var(--sky-top) 0%, var(--sky-mid) 55%, var(--sky-bottom) 100%);
+    transition: background 0.6s;
+}
+
+.stars {
+    position: absolute;
+    inset: 0 0 40% 0;
+    opacity: var(--stars);
+    transition: opacity 0.6s;
+    background-image:
+        radial-gradient(1.5px 1.5px at 8% 20%, #fff, transparent),
+        radial-gradient(1px 1px at 17% 55%, #fff, transparent),
+        radial-gradient(1.5px 1.5px at 26% 12%, #fff, transparent),
+        radial-gradient(1px 1px at 35% 40%, #fff, transparent),
+        radial-gradient(1.5px 1.5px at 44% 18%, #fff, transparent),
+        radial-gradient(1px 1px at 53% 60%, #fff, transparent),
+        radial-gradient(1.5px 1.5px at 61% 8%, #fff, transparent),
+        radial-gradient(1px 1px at 69% 34%, #fff, transparent),
+        radial-gradient(1.5px 1.5px at 78% 50%, #fff, transparent),
+        radial-gradient(1px 1px at 86% 16%, #fff, transparent),
+        radial-gradient(1.5px 1.5px at 93% 44%, #fff, transparent),
+        radial-gradient(1px 1px at 5% 70%, #fff, transparent),
+        radial-gradient(1px 1px at 48% 80%, #fff, transparent);
+}
+
+.sun {
+    position: absolute;
+    top: 11%;
+    right: 12%;
+    width: 96px;
+    height: 96px;
+    border-radius: 50%;
+    background: var(--sun);
+    box-shadow: 0 0 60px 26px var(--sun-glow);
+    animation: float 7s ease-in-out infinite alternate;
+    transition: background 0.6s, box-shadow 0.6s;
+}
+
+@keyframes float {
+    to {
+        transform: translateY(14px);
+    }
+}
+
+/* clouds drift across the sky */
+.cloud {
+    position: absolute;
+    left: 0;
+    width: 150px;
+    height: 44px;
+    border-radius: 44px;
+    background: var(--cloud);
+    opacity: var(--cloud-op);
+    animation: drift linear infinite;
+    transition: background 0.6s;
+}
+
+.cloud::before,
+.cloud::after {
+    content: "";
+    position: absolute;
+    background: inherit;
+    border-radius: 50%;
+}
+
+.cloud::before {
+    width: 64px;
+    height: 64px;
+    top: -30px;
+    left: 24px;
+}
+
+.cloud::after {
+    width: 48px;
+    height: 48px;
+    top: -20px;
+    left: 78px;
+}
+
+.cloud.c1 { top: 12%; animation-duration: 75s; animation-delay: -20s; }
+.cloud.c2 { top: 26%; width: 110px; animation-duration: 105s; animation-delay: -60s; transform: scale(0.8); }
+.cloud.c3 { top: 6%; width: 130px; animation-duration: 130s; animation-delay: -90s; }
+
+@keyframes drift {
+    from {
+        transform: translateX(-260px);
+    }
+    to {
+        transform: translateX(calc(100vw + 60px));
+    }
+}
+
+/* mountains and hills scroll slowly (parallax) */
+.layer {
+    position: absolute;
+    left: 0;
+    width: 200%;
+    display: flex;
+    animation: scrollx linear infinite;
+    will-change: transform;
+}
+
+.layer svg {
+    width: 50%;
+    height: 100%;
+    display: block;
+    flex: none;
+}
+
+@keyframes scrollx {
+    to {
+        transform: translateX(-50%);
+    }
+}
+
+.mount-far {
+    bottom: 100px;
+    height: 300px;
+    animation-duration: 150s;
+}
+
+.mount-far path {
+    fill: var(--mount-far);
+    transition: fill 0.6s;
+}
+
+.mount-near {
+    bottom: 84px;
+    height: 220px;
+    animation-duration: 95s;
+}
+
+.mount-near path {
+    fill: var(--mount-near);
+    transition: fill 0.6s;
+}
+
+.hills {
+    bottom: 50px;
+    height: 160px;
+    animation-duration: 50s;
+}
+
+.hills .hill {
+    fill: var(--hill);
+    transition: fill 0.6s;
+}
+
+.hills .tree {
+    fill: var(--tree);
+    transition: fill 0.6s;
+}
+
+/* the road */
+.road {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 10px;
+    height: 104px;
+    background: var(--road);
+    border-top: 3px solid var(--road-edge);
+    z-index: 1;
+    transition: background 0.6s;
+}
+
+.road-line {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 50%;
+    height: 5px;
+    background: repeating-linear-gradient(90deg, var(--road-dash) 0 44px, transparent 44px 100px);
+    animation: roadmove 0.9s linear infinite;
+}
+
+@keyframes roadmove {
+    to {
+        background-position: -100px 0;
+    }
+}
+
+.curb {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 10px;
+    z-index: 1;
+    background: repeating-linear-gradient(90deg, var(--red) 0 30px, #ffffff 30px 60px);
+    animation: curbmove 0.54s linear infinite;
+}
+
+@keyframes curbmove {
+    to {
+        background-position: -60px 0;
+    }
+}
+
+/* the cars driving by */
+.scene-cars {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 10px;
+    height: 104px;
+    z-index: 2;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+.scene-car {
+    position: absolute;
+    left: 0;
+    width: var(--w);
+    animation: drive var(--dur) linear infinite;
+    animation-delay: var(--delay);
+}
+
+.scene-car svg {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.car-bob {
+    animation: bob 0.5s ease-in-out infinite alternate;
+}
+
+@keyframes drive {
+    from {
+        transform: translateX(-340px);
+    }
+    to {
+        transform: translateX(calc(100vw + 60px));
+    }
+}
+
+@keyframes bob {
+    to {
+        transform: translateY(-1.5px);
+    }
+}
+
+/* hero text sits on top of the scene */
+.hero-content {
+    position: relative;
+    z-index: 3;
+    padding: 70px 6% 200px;
+    max-width: 900px;
+}
+
+.hero-content > * {
+    animation: rise 0.8s ease both;
+}
+
+.hero-content > :nth-child(1) { animation-delay: 0.05s; }
+.hero-content > :nth-child(2) { animation-delay: 0.15s; }
+.hero-content > :nth-child(3) { animation-delay: 0.25s; }
+.hero-content > :nth-child(4) { animation-delay: 0.35s; }
+.hero-content > :nth-child(5) { animation-delay: 0.5s; }
+
+.hero-small {
+    font-family: "Oswald", sans-serif;
+    letter-spacing: 6px;
+    color: var(--hero-sub);
+    font-size: 14px;
+    margin: 0 0 10px;
+}
+
+.hero h1 {
+    font-family: "Oswald", sans-serif;
+    font-size: clamp(48px, 9vw, 110px);
+    line-height: 1;
+    margin: 0 0 20px;
+    text-transform: uppercase;
+    color: var(--hero-text);
+    text-shadow: 0 2px 24px rgba(255, 255, 255, 0.5);
+}
+
+:root[data-theme="dark"] .hero h1 {
+    text-shadow: none;
+}
+
+.hero h1 span {
+    color: var(--red);
+}
+
+.hero-text {
+    max-width: 560px;
+    margin: 0 auto 30px;
+    color: var(--hero-text);
+    opacity: 0.85;
+    font-size: 18px;
+}
+
+.hero-button {
+    display: inline-block;
+    background: var(--red);
+    color: white;
+    padding: 14px 34px;
+    border-radius: 999px;
+    text-decoration: none;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    font-size: 14px;
+    box-shadow: 0 8px 24px rgba(212, 0, 0, 0.35);
+    transition: transform 0.2s, background 0.2s;
+}
+
+.hero-button:hover {
+    background: #f01010;
+    transform: translateY(-2px);
+}
+
+.hero-stats {
+    display: flex;
+    gap: 18px;
+    margin-top: 40px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.hero-stats > div {
+    background: var(--glass);
+    border: 1px solid var(--glass-border);
+    backdrop-filter: blur(10px);
+    border-radius: 16px;
+    padding: 12px 26px;
+    min-width: 120px;
+}
+
+.hero-stats strong {
+    display: block;
+    font-family: "Oswald", sans-serif;
+    font-size: 36px;
+    line-height: 1.1;
+    color: var(--hero-text);
+}
+
+.hero-stats span {
+    color: var(--hero-sub);
+    font-size: 12px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+/* ---------- Controls ---------- */
+.controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    justify-content: center;
+    align-items: center;
+    padding: 50px 6% 10px;
+    scroll-margin-top: 60px;
+}
+
+#search,
+#sort {
+    background: var(--panel);
+    color: var(--text);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 12px 20px;
+    font-size: 15px;
+    font-family: inherit;
+    box-shadow: var(--shadow);
+}
+
+#search {
+    width: 280px;
+}
+
+#search:focus,
+#sort:focus {
+    outline: none;
+    border-color: var(--red);
+}
+
+.filters {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.filter-btn,
+.evo-btn {
+    background: var(--panel);
+    color: var(--text);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 10px 20px;
+    font-family: inherit;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.filter-btn:hover,
+.evo-btn:hover {
+    border-color: var(--red);
+}
+
+.filter-btn.active,
+.evo-btn.active {
+    background: var(--red);
+    border-color: var(--red);
+    color: white;
+}
+
+.compare-tip {
+    text-align: center;
+    color: var(--muted);
+    font-size: 14px;
+    margin: 14px 6% 0;
+}
+
+.compare-tip b {
+    color: var(--red);
+}
+
+/* ---------- Car grid ---------- */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 28px;
+    padding: 30px 6% 80px;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.car-card {
+    position: relative;
+    background: var(--panel);
+    border-radius: 16px;
+    overflow: hidden;
+    cursor: pointer;
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow);
+    transition: transform 0.25s, border-color 0.25s, box-shadow 0.25s;
+}
+
+.car-card:hover {
+    transform: translateY(-6px);
+    border-color: var(--red);
+    box-shadow: var(--shadow-hover);
+}
+
+.car-card.selected {
+    border-color: var(--red);
+    box-shadow: 0 0 0 2px var(--red);
+}
+
+/* Picture area. If there is no photo, the big faded name shows instead. */
+.car-img {
+    position: relative;
+    height: 190px;
+    background: var(--ph-bg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.car-img .ghost {
+    font-family: "Oswald", sans-serif;
+    font-weight: 700;
+    font-size: 64px;
+    color: var(--ghost);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 0 10px;
+    text-align: center;
+}
+
+.car-img img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    transition: transform 0.4s, opacity 0.6s;
+}
+
+.car-img img.loaded {
+    opacity: 1;
+}
+
+.car-card:hover .car-img img {
+    transform: scale(1.06);
+}
+
+.badge {
+    position: absolute;
+    top: 14px;
+    left: 14px;
+    z-index: 2;
+    background: var(--badge-bg);
+    color: var(--badge-text);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 5px 12px;
+    border-radius: 999px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.compare-btn {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    z-index: 3;
+    background: var(--chip-bg);
+    color: var(--chip-text);
+    border: 1px solid var(--chip-border);
+    border-radius: 999px;
+    padding: 6px 13px;
+    font-family: inherit;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.compare-btn:hover,
+.compare-btn.selected {
+    background: var(--red);
+    border-color: var(--red);
+    color: white;
+}
+
+.car-info {
+    padding: 20px 22px 24px;
+}
+
+.car-year {
+    color: var(--muted);
+    font-size: 13px;
+    letter-spacing: 2px;
+}
+
+.car-info h2 {
+    font-family: "Oswald", sans-serif;
+    font-size: 28px;
+    margin: 2px 0 6px;
+    text-transform: uppercase;
+}
+
+.car-engine {
+    color: var(--muted);
+    font-size: 14px;
+    margin: 0 0 18px;
+}
+
+.mini-stats {
+    display: flex;
+    justify-content: space-between;
+    border-top: 1px solid var(--border);
+    padding-top: 16px;
+}
+
+.mini-stats div {
+    text-align: center;
+}
+
+.mini-stats strong {
+    display: block;
+    font-family: "Oswald", sans-serif;
+    font-size: 20px;
+    color: var(--text);
+}
+
+.mini-stats span {
+    font-size: 11px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.no-results {
+    text-align: center;
+    color: var(--muted);
+    padding: 40px 0 80px;
+}
+
+/* ---------- History timeline ---------- */
+.history {
+    padding: 70px 6% 90px;
+    max-width: 820px;
+    margin: 0 auto;
+    scroll-margin-top: 60px;
+}
+
+.section-small {
+    text-align: center;
+    font-family: "Oswald", sans-serif;
+    letter-spacing: 6px;
+    color: var(--muted);
+    font-size: 13px;
+    margin: 0 0 6px;
+}
+
+.section-title {
+    text-align: center;
+    font-family: "Oswald", sans-serif;
+    font-size: clamp(32px, 5vw, 52px);
+    text-transform: uppercase;
+    margin: 0 0 50px;
+}
+
+.section-title span {
+    color: var(--red);
+}
+
+.timeline {
+    position: relative;
+    padding-left: 34px;
+    border-left: 2px solid var(--border);
+}
+
+.t-item {
+    position: relative;
+    display: flex;
+    gap: 24px;
+    margin-bottom: 36px;
+}
+
+.t-item::before {
+    content: "";
+    position: absolute;
+    left: -43px;
+    top: 8px;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: var(--red);
+    border: 3px solid var(--bg);
+    box-shadow: 0 0 0 2px var(--red);
+}
+
+.t-year {
+    font-family: "Oswald", sans-serif;
+    font-size: 30px;
+    color: var(--red);
+    min-width: 80px;
+}
+
+.t-body h3 {
+    margin: 4px 0 4px;
+    font-size: 18px;
+}
+
+.t-body p {
+    margin: 0;
+    color: var(--text-soft);
+}
+
+/* ---------- Compare bar ---------- */
+.compare-bar {
+    position: fixed;
+    left: 50%;
+    bottom: 20px;
+    transform: translateX(-50%);
+    z-index: 40;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 10px 12px 10px 24px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.25);
+    max-width: calc(100% - 24px);
+}
+
+.compare-bar[hidden] {
+    display: none;
+}
+
+.compare-chips {
+    font-size: 14px;
+    color: var(--muted);
+}
+
+.compare-chips b {
+    color: var(--text);
+}
+
+.compare-go {
+    background: var(--red);
+    color: white;
+    border: none;
+    border-radius: 999px;
+    padding: 10px 24px;
+    font-family: inherit;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.compare-go:disabled {
+    background: var(--track);
+    color: var(--muted);
+    cursor: not-allowed;
+}
+
+.compare-clear {
+    background: transparent;
+    color: var(--muted);
+    border: none;
+    font-family: inherit;
+    cursor: pointer;
+    padding: 10px 14px;
+}
+
+.compare-clear:hover {
+    color: var(--text);
+}
+
+/* ---------- Pop-up ---------- */
+.modal {
+    position: fixed;
+    inset: 0;
+    z-index: 50;
+    background: var(--overlay);
+    backdrop-filter: blur(4px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    overflow-y: auto;
+    animation: fadeOnly 0.25s ease;
+}
+
+.modal[hidden] {
+    display: none;
+}
+
+@keyframes fadeOnly {
+    from {
+        opacity: 0;
+    }
+}
+
+.modal.closing {
+    opacity: 0;
+    transition: opacity 0.2s ease;
+}
+
+.modal.closing .modal-box {
+    transform: translateY(14px) scale(0.98);
+    transition: transform 0.2s ease;
+}
+
+.modal-box {
+    position: relative;
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    width: 100%;
+    max-width: 760px;
+    max-height: 92vh;
+    overflow-y: auto;
+    animation: fadeUp 0.35s ease;
+}
+
+.modal-box.wide {
+    max-width: 880px;
+}
+
+.modal-close {
+    position: absolute;
+    top: 14px;
+    right: 18px;
+    z-index: 5;
+    background: rgba(0, 0, 0, 0.55);
+    color: white;
+    border: none;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.modal-close:hover {
+    background: var(--red);
+}
+
+.modal .car-img {
+    height: 260px;
+}
+
+.modal .car-img .ghost {
+    font-size: 96px;
+}
+
+.modal-body {
+    padding: 28px 32px 34px;
+}
+
+.modal-body h2 {
+    font-family: "Oswald", sans-serif;
+    font-size: 40px;
+    margin: 0;
+    text-transform: uppercase;
+}
+
+.modal-desc {
+    color: var(--text-soft);
+    margin: 10px 0 26px;
+}
+
+.bar-row {
+    margin-bottom: 16px;
+}
+
+.bar-label {
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+    margin-bottom: 6px;
+}
+
+.bar-label span {
+    color: var(--muted);
+}
+
+.bar-track {
+    height: 8px;
+    background: var(--track);
+    border-radius: 999px;
+    overflow: hidden;
+}
+
+.bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--red-dark), var(--red));
+    border-radius: 999px;
+    animation: grow 0.9s ease;
+}
+
+@keyframes grow {
+    from {
+        width: 0;
+    }
+}
+
+.spec-table {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin-top: 26px;
+}
+
+.spec {
+    background: var(--panel-light);
+    border-radius: 12px;
+    padding: 14px 16px;
+}
+
+.spec.wide {
+    grid-column: 1 / -1;
+}
+
+.spec small {
+    display: block;
+    color: var(--muted);
+    font-size: 11px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-bottom: 2px;
+}
+
+.spec p {
+    margin: 0;
+    font-weight: 500;
+}
+
+/* ---------- Compare pop-up ---------- */
+.cmp-title {
+    margin-bottom: 4px;
+}
+
+.cmp-verdict {
+    color: var(--muted);
+    margin: 0 0 6px;
+}
+
+.cmp-history {
+    color: var(--text-soft);
+    font-size: 14px;
+    margin: 0 0 22px;
+}
+
+.cmp-row {
+    display: grid;
+    grid-template-columns: 120px 1fr 1fr;
+    gap: 14px;
+    padding: 14px 0;
+    border-top: 1px solid var(--border);
+    align-items: center;
+}
+
+.cmp-row.head {
+    border-top: none;
+    padding-top: 0;
+}
+
+.cmp-label {
+    color: var(--muted);
+    font-size: 12px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+}
+
+.cmp-name {
+    font-family: "Oswald", sans-serif;
+    font-size: 26px;
+    text-transform: uppercase;
+    color: var(--red);
+    line-height: 1.1;
+}
+
+.cmp-name small {
+    display: block;
+    font-family: "Inter", sans-serif;
+    font-size: 12px;
+    color: var(--muted);
+    letter-spacing: 1px;
+}
+
+.cmp-cell {
+    font-weight: 500;
+}
+
+.cmp-cell.win {
+    color: var(--green);
+    font-weight: 600;
+}
+
+.cmp-cell.win::after {
+    content: "  \25B2";
+    font-size: 11px;
+}
+
+/* ---------- Smoothness extras ---------- */
+.progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 3px;
+    width: 0;
+    background: var(--red);
+    z-index: 60;
+    transition: width 0.1s linear;
+}
+
+.to-top {
+    position: fixed;
+    right: 20px;
+    bottom: 24px;
+    z-index: 35;
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    border: 1px solid var(--border);
+    background: var(--panel);
+    color: var(--text);
+    font-size: 20px;
+    cursor: pointer;
+    box-shadow: var(--shadow);
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(10px);
+    transition: all 0.3s ease;
+}
+
+.to-top.show {
+    opacity: 1;
+    pointer-events: auto;
+    transform: none;
+}
+
+.to-top:hover {
+    background: var(--red);
+    border-color: var(--red);
+    color: white;
+}
+
+body.has-compare-bar .to-top {
+    bottom: 90px;
+}
+
+/* ---------- Evolution chart ---------- */
+.evolution {
+    padding: 30px 6% 80px;
+    max-width: 980px;
+    margin: 0 auto;
+    scroll-margin-top: 60px;
+}
+
+.evo-toggle {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-bottom: 34px;
+}
+
+.evo-row {
+    display: grid;
+    grid-template-columns: 56px 150px 1fr 90px;
+    gap: 14px;
+    align-items: center;
+    padding: 10px 10px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.evo-row:hover {
+    background: var(--bg-soft);
+}
+
+.evo-year {
+    color: var(--muted);
+    font-size: 13px;
+    letter-spacing: 1px;
+}
+
+.evo-name {
+    font-family: "Oswald", sans-serif;
+    text-transform: uppercase;
+    font-size: 17px;
+}
+
+.evo-track {
+    height: 12px;
+    background: var(--track);
+    border-radius: 999px;
+    overflow: hidden;
+}
+
+.evo-fill {
+    height: 100%;
+    width: 0;
+    background: linear-gradient(90deg, var(--red-dark), var(--red));
+    border-radius: 999px;
+    transition: width 0.9s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.evo-chart.go .evo-fill {
+    width: var(--w);
+}
+
+.evo-value {
+    text-align: right;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.evo-note {
+    text-align: center;
+    color: var(--muted);
+    font-size: 13px;
+    margin-top: 18px;
+}
+
+/* ---------- Footer ---------- */
+.footer {
+    text-align: center;
+    padding: 40px 6%;
+    border-top: 1px solid var(--border);
+    color: var(--muted);
+    font-size: 13px;
+}
+
+.footer p {
+    margin: 4px 0;
+}
+
+/* ---------- Small screens ---------- */
+@media (max-width: 560px) {
+    .spec-table {
+        grid-template-columns: 1fr;
+    }
+
+    .modal-body {
+        padding: 22px 20px 28px;
+    }
+
+    #search {
+        width: 100%;
+    }
+
+    .hero-content {
+        padding: 50px 6% 190px;
+    }
+
+    .hero-stats > div {
+        min-width: 96px;
+        padding: 10px 16px;
+    }
+
+    .hero-stats strong {
+        font-size: 28px;
+    }
+
+    .sun {
+        width: 64px;
+        height: 64px;
+        right: 8%;
+    }
+
+    .t-item {
+        flex-direction: column;
+        gap: 2px;
+    }
+
+    .cmp-row {
+        grid-template-columns: 80px 1fr 1fr;
+        gap: 8px;
+        font-size: 14px;
+    }
+
+    .cmp-name {
+        font-size: 20px;
+    }
+
+    .nav-links {
+        display: none;
+    }
+
+    .nav-right {
+        gap: 0;
+    }
+
+    .logo {
+        font-size: 16px;
+    }
+
+    .evo-row {
+        grid-template-columns: 44px 1fr 70px;
+        gap: 6px 10px;
+    }
+
+    .evo-track {
+        order: 4;
+        grid-column: 1 / -1;
+    }
+}
+
+/* people who prefer less motion get a still scene and no animations */
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+
+    .layer,
+    .cloud,
+    .sun,
+    .road-line,
+    .curb,
+    .car-bob {
+        animation: none !important;
+    }
+
+    .scene-car {
+        animation: none !important;
+        transform: translateX(var(--static));
+    }
+
+    .reveal {
+        opacity: 1;
+    }
+}
+
+</style>
 </head>
 <body>
 
@@ -17,27 +1443,79 @@
     <!-- Top bar -->
     <nav class="navbar">
         <div class="logo">FERRARI <span>ENCYCLOPEDIA</span></div>
-        <div class="nav-links">
-            <a href="#collection">Collection</a>
-            <a href="#evolution">Evolution</a>
-            <a href="#history">History</a>
+        <div class="nav-right">
+            <div class="nav-links">
+                <a href="#collection">Collection</a>
+                <a href="#evolution">Evolution</a>
+                <a href="#history">History</a>
+            </div>
+            <button id="theme-toggle" class="theme-toggle" aria-label="Switch theme">Night mode</button>
         </div>
     </nav>
 
-    <!-- Big hero section (put a photo at images/hero.jpg to show it here) -->
+    <!-- Hero with a moving scene behind the text -->
     <header class="hero">
-        <p class="hero-small">THE COMPLETE GUIDE</p>
-        <h1>Born to be <span>Red.</span></h1>
-        <p class="hero-text">
-            Engines, power, speed, tires and more. Explore legendary Ferrari
-            models, from the raw F40 to the hybrid SF90.
-        </p>
-        <a href="#collection" class="hero-button">Explore the cars</a>
 
-        <div class="hero-stats">
-            <div><strong id="stat-models">0</strong><span>Models</span></div>
-            <div><strong id="stat-hp">0</strong><span>Max hp</span></div>
-            <div><strong id="stat-speed">0</strong><span>Top km/h</span></div>
+        <div class="scene" aria-hidden="true">
+            <div class="stars"></div>
+            <div class="sun"></div>
+            <div class="cloud c1"></div>
+            <div class="cloud c2"></div>
+            <div class="cloud c3"></div>
+
+            <!-- far mountains (two copies side by side so the loop is seamless) -->
+            <div class="layer mount-far">
+                <svg viewBox="0 0 1200 300" preserveAspectRatio="none"><path d="M0,300 L0,190 C80,190 140,90 260,100 C340,106 380,160 470,150 C560,140 620,40 740,48 C840,55 900,130 980,140 C1060,150 1120,190 1200,190 L1200,300 Z"/></svg>
+                <svg viewBox="0 0 1200 300" preserveAspectRatio="none"><path d="M0,300 L0,190 C80,190 140,90 260,100 C340,106 380,160 470,150 C560,140 620,40 740,48 C840,55 900,130 980,140 C1060,150 1120,190 1200,190 L1200,300 Z"/></svg>
+            </div>
+
+            <!-- nearer mountains -->
+            <div class="layer mount-near">
+                <svg viewBox="0 0 1200 220" preserveAspectRatio="none"><path d="M0,220 L0,150 C70,150 130,70 220,78 C300,85 340,130 420,125 C520,118 560,50 680,58 C780,64 820,120 900,128 C990,137 1050,150 1200,150 L1200,220 Z"/></svg>
+                <svg viewBox="0 0 1200 220" preserveAspectRatio="none"><path d="M0,220 L0,150 C70,150 130,70 220,78 C300,85 340,130 420,125 C520,118 560,50 680,58 C780,64 820,120 900,128 C990,137 1050,150 1200,150 L1200,220 Z"/></svg>
+            </div>
+
+            <!-- green hills with cypress trees -->
+            <div class="layer hills">
+                <svg viewBox="0 0 900 150" preserveAspectRatio="none">
+                    <ellipse class="tree" cx="118" cy="54" rx="3.5" ry="22"/><ellipse class="tree" cx="130" cy="57" rx="3" ry="17"/>
+                    <ellipse class="tree" cx="318" cy="30" rx="3.5" ry="22"/><ellipse class="tree" cx="330" cy="37" rx="3" ry="17"/>
+                    <ellipse class="tree" cx="520" cy="67" rx="3.5" ry="22"/><ellipse class="tree" cx="534" cy="73" rx="3" ry="17"/>
+                    <ellipse class="tree" cx="700" cy="62" rx="3.5" ry="22"/><ellipse class="tree" cx="712" cy="63" rx="3" ry="18"/>
+                    <ellipse class="tree" cx="862" cy="38" rx="3.5" ry="22"/>
+                    <path class="hill" d="M0,150 L0,70 C100,70 160,30 300,36 C420,42 470,85 580,80 C700,75 760,38 850,45 C880,48 890,70 900,70 L900,150 Z"/>
+                </svg>
+                <svg viewBox="0 0 900 150" preserveAspectRatio="none">
+                    <ellipse class="tree" cx="118" cy="54" rx="3.5" ry="22"/><ellipse class="tree" cx="130" cy="57" rx="3" ry="17"/>
+                    <ellipse class="tree" cx="318" cy="30" rx="3.5" ry="22"/><ellipse class="tree" cx="330" cy="37" rx="3" ry="17"/>
+                    <ellipse class="tree" cx="520" cy="67" rx="3.5" ry="22"/><ellipse class="tree" cx="534" cy="73" rx="3" ry="17"/>
+                    <ellipse class="tree" cx="700" cy="62" rx="3.5" ry="22"/><ellipse class="tree" cx="712" cy="63" rx="3" ry="18"/>
+                    <ellipse class="tree" cx="862" cy="38" rx="3.5" ry="22"/>
+                    <path class="hill" d="M0,150 L0,70 C100,70 160,30 300,36 C420,42 470,85 580,80 C700,75 760,38 850,45 C880,48 890,70 900,70 L900,150 Z"/>
+                </svg>
+            </div>
+
+            <div class="road"><div class="road-line"></div></div>
+            <div class="curb"></div>
+
+            <!-- cars are added here by the script -->
+            <div id="scene-cars" class="scene-cars"></div>
+        </div>
+
+        <div class="hero-content">
+            <p class="hero-small">THE COMPLETE GUIDE</p>
+            <h1>Born to be <span>Red.</span></h1>
+            <p class="hero-text">
+                Engines, power, speed, tires and more. Explore legendary Ferrari
+                models, from the raw F40 to the hybrid SF90.
+            </p>
+            <a href="#collection" class="hero-button">Explore the cars</a>
+
+            <div class="hero-stats">
+                <div><strong id="stat-models">0</strong><span>Models</span></div>
+                <div><strong id="stat-hp">0</strong><span>Max hp</span></div>
+                <div><strong id="stat-speed">0</strong><span>Top km/h</span></div>
+            </div>
         </div>
     </header>
 
@@ -62,7 +1540,7 @@
 
     <p class="compare-tip">Tip: press <b>+ Compare</b> on any two cars to see them side by side.</p>
 
-    <!-- Cars get placed here by script.js -->
+    <!-- Cars get placed here by the script -->
     <main id="grid" class="grid"></main>
     <p id="no-results" class="no-results" hidden>No Ferrari found. Try another search.</p>
 
@@ -780,6 +2258,87 @@ renderEvolution();
 startHeroStats();
 observeReveals();
 onScroll();
+
+
+// ===========================================================
+//  THEME SWITCH (bright by default, night mode on the button)
+// ===========================================================
+const themeButton = document.getElementById("theme-toggle");
+
+function applyTheme(theme) {
+    document.documentElement.dataset.theme = theme;
+    themeButton.textContent = theme === "dark" ? "Bright mode" : "Night mode";
+}
+
+let savedTheme = "light";
+try {
+    savedTheme = localStorage.getItem("ferrari-theme") || "light";
+} catch (error) {
+    // storage not available: just use the bright theme
+}
+applyTheme(savedTheme);
+
+themeButton.addEventListener("click", function () {
+    const next = document.documentElement.dataset.theme === "dark" ? "light" : "dark";
+    applyTheme(next);
+    try {
+        localStorage.setItem("ferrari-theme", next);
+    } catch (error) {
+        // ignore
+    }
+});
+
+// ===========================================================
+//  THE CARS DRIVING PAST IN THE HERO
+//  Each car is drawn with a bit of SVG. These are generic
+//  sports-car shapes, not copies of any real model.
+// ===========================================================
+function wheelSVG(cx, spinSeconds) {
+    return `
+        <path d="M${cx - 17},56 A17,17 0 0 1 ${cx + 17},56 Z" fill="#15151a"/>
+        <circle cx="${cx}" cy="54" r="13" fill="#121216"/>
+        <circle cx="${cx}" cy="54" r="8" fill="#d3d7de"/>
+        <g stroke="#6b6f78" stroke-width="2">
+            <line x1="${cx - 7}" y1="54" x2="${cx + 7}" y2="54"/>
+            <line x1="${cx - 7}" y1="54" x2="${cx + 7}" y2="54" transform="rotate(60 ${cx} 54)"/>
+            <line x1="${cx - 7}" y1="54" x2="${cx + 7}" y2="54" transform="rotate(120 ${cx} 54)"/>
+            <animateTransform attributeName="transform" type="rotate"
+                from="0 ${cx} 54" to="360 ${cx} 54" dur="${spinSeconds}s" repeatCount="indefinite"/>
+        </g>
+        <circle cx="${cx}" cy="54" r="2.5" fill="#6b6f78"/>`;
+}
+
+function carSVG(color, spinSeconds) {
+    return `
+        <svg viewBox="0 0 240 70" xmlns="http://www.w3.org/2000/svg" style="overflow:visible">
+            <polygon points="232,44 345,28 345,62" fill="#fff3b0" style="opacity:var(--beam)"/>
+            <path d="M8,50 L10,40 C14,36 30,34 52,32 L88,20 C100,13 130,12 150,20 L186,32 C206,35 226,38 232,46 L234,52 C234,54 232,56 228,56 L12,56 C9,56 8,54 8,50 Z" fill="${color}"/>
+            <path d="M14,45 L226,45" stroke="#ffffff" stroke-opacity="0.3" stroke-width="2" fill="none"/>
+            <path d="M96,30 L110,19 C122,15 136,15 148,20 L172,30 Z" fill="#1c2733" fill-opacity="0.85"/>
+            <ellipse cx="226" cy="44" rx="5" ry="2.6" fill="#fff7c2"/>
+            <rect x="8" y="42" width="7" height="4" rx="1.5" fill="#7a0000"/>
+            ${wheelSVG(55, spinSeconds)}
+            ${wheelSVG(185, spinSeconds)}
+        </svg>`;
+}
+
+// width, lane (bottom), how long a trip takes, and where it starts
+const sceneCarList = [
+    { color: "#d40000", w: 230, bottom: 6,  dur: 11, delay: -3,  still: "58vw", spin: 0.35 },
+    { color: "#ffd400", w: 168, bottom: 52, dur: 17, delay: -12, still: "20vw", spin: 0.45 },
+    { color: "#f4f4f7", w: 230, bottom: 6,  dur: 15, delay: -10, still: "24vw", spin: 0.4 },
+    { color: "#d40000", w: 158, bottom: 52, dur: 22, delay: -5,  still: "70vw", spin: 0.5 }
+];
+
+document.getElementById("scene-cars").innerHTML = sceneCarList.map(function (car) {
+    const layer = car.bottom > 20 ? 1 : 2;     // far lane cars sit behind near lane cars
+    return `
+        <div class="scene-car"
+             style="--w:${car.w}px; --dur:${car.dur}s; --delay:${car.delay}s;
+                    --static:${car.still}; bottom:${car.bottom}px; z-index:${layer}">
+            <div class="car-bob">${carSVG(car.color, car.spin)}</div>
+        </div>`;
+}).join("");
 
 </script>
 </body>
