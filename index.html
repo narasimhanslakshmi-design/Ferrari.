@@ -1,34 +1,69 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ferrari Encyclopedia</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Oswald:wght@500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>Ferrari Encyclopedia</h1>
-    <p style="text-align:center;">Everything about Ferrari cars: models, engines, tires and more.</p>
-        <div class="grid"></div>
 
-    <div class="card">
-        <h2>Ferrari F40</h2>
-        <p><b>Year:</b> 1987</p>
-        <p><b>Type:</b> Coupe</p>
-        <p><b>Engine:</b> 2.9L twin-turbo V8</p>
-        <p><b>Power:</b> about 471 hp</p>
-        <p><b>0-100 km/h:</b> about 4.7 seconds</p>
-        <p><b>Top speed:</b> about 324 km/h</p>
-        <p><b>Tires:</b> Goodyear Eagle F1 (front 245/40 R17, rear 335/35 R17)</p>
-    </div>
-        <div class="card">
-        <h2>Ferrari 458 Italia</h2>
-        <p><b>Year:</b> 2009</p>
-        <p><b>Type:</b> Coupe</p>
-        <p><b>Engine:</b> 4.5L naturally aspirated V8</p>
-        <p><b>Power:</b> about 570 hp</p>
-        <p><b>0-100 km/h:</b> about 3.4 seconds</p>
-        <p><b>Top speed:</b> over 325 km/h</p>
-        <p><b>Tires:</b> Pirelli P Zero (front 235/35 R20, rear 295/35 R20)</p>
-    </div>
+    <!-- Top bar -->
+    <nav class="navbar">
+        <div class="logo">FERRARI <span>ENCYCLOPEDIA</span></div>
+        <a href="#collection" class="nav-link">Collection</a>
+    </nav>
+
+    <!-- Big hero section -->
+    <header class="hero">
+        <p class="hero-small">THE COMPLETE GUIDE</p>
+        <h1>Born to be <span>Red.</span></h1>
+        <p class="hero-text">
+            Engines, power, speed, tires and more. Explore legendary Ferrari
+            models, from the raw F40 to the hybrid SF90.
+        </p>
+        <a href="#collection" class="hero-button">Explore the cars</a>
+    </header>
+
+    <!-- Search, filters and sorting -->
+    <section id="collection" class="controls">
+        <input type="text" id="search" placeholder="Search a model... (e.g. F40)">
+
+        <div class="filters">
+            <button class="filter-btn active" data-filter="all">All</button>
+            <button class="filter-btn" data-filter="v12">12 cylinders</button>
+            <button class="filter-btn" data-filter="v8">V8</button>
+            <button class="filter-btn" data-filter="hybrid">Hybrid</button>
         </div>
+
+        <select id="sort">
+            <option value="year-new">Newest first</option>
+            <option value="year-old">Oldest first</option>
+            <option value="hp-high">Most powerful</option>
+            <option value="speed-high">Fastest top speed</option>
+        </select>
+    </section>
+
+    <!-- Cars get placed here by script.js -->
+    <main id="grid" class="grid"></main>
+    <p id="no-results" class="no-results" hidden>No Ferrari found. Try another search.</p>
+
+    <!-- Pop-up with full details -->
+    <div id="modal" class="modal" hidden>
+        <div class="modal-box">
+            <button id="modal-close" class="modal-close" aria-label="Close">&times;</button>
+            <div id="modal-content"></div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <p>A fan project made for learning. Not affiliated with Ferrari S.p.A.</p>
+        <p>Figures are approximate factory numbers and can vary by version and source.</p>
+    </footer>
+
+    <script src="script.js"></script>
 </body>
 </html>
