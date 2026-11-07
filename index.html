@@ -11,13 +11,20 @@
 </head>
 <body>
 
+    <!-- Scroll progress bar -->
+    <div id="progress" class="progress"></div>
+
     <!-- Top bar -->
     <nav class="navbar">
         <div class="logo">FERRARI <span>ENCYCLOPEDIA</span></div>
-        <a href="#collection" class="nav-link">Collection</a>
+        <div class="nav-links">
+            <a href="#collection">Collection</a>
+            <a href="#evolution">Evolution</a>
+            <a href="#history">History</a>
+        </div>
     </nav>
 
-    <!-- Big hero section -->
+    <!-- Big hero section (put a photo at images/hero.jpg to show it here) -->
     <header class="hero">
         <p class="hero-small">THE COMPLETE GUIDE</p>
         <h1>Born to be <span>Red.</span></h1>
@@ -26,6 +33,12 @@
             models, from the raw F40 to the hybrid SF90.
         </p>
         <a href="#collection" class="hero-button">Explore the cars</a>
+
+        <div class="hero-stats">
+            <div><strong id="stat-models">0</strong><span>Models</span></div>
+            <div><strong id="stat-hp">0</strong><span>Max hp</span></div>
+            <div><strong id="stat-speed">0</strong><span>Top km/h</span></div>
+        </div>
     </header>
 
     <!-- Search, filters and sorting -->
@@ -47,13 +60,98 @@
         </select>
     </section>
 
+    <p class="compare-tip">Tip: press <b>+ Compare</b> on any two cars to see them side by side.</p>
+
     <!-- Cars get placed here by script.js -->
     <main id="grid" class="grid"></main>
     <p id="no-results" class="no-results" hidden>No Ferrari found. Try another search.</p>
 
-    <!-- Pop-up with full details -->
+    <!-- Evolution chart: all cars lined up by launch year -->
+    <section id="evolution" class="evolution">
+        <p class="section-small">THROUGH THE YEARS</p>
+        <h2 class="section-title">Power <span>evolution</span></h2>
+
+        <div class="evo-toggle">
+            <button class="evo-btn active" data-metric="hp">Horsepower</button>
+            <button class="evo-btn" data-metric="speed">Top speed</button>
+            <button class="evo-btn" data-metric="accel">0-100 km/h</button>
+        </div>
+
+        <div id="evo-chart" class="evo-chart"></div>
+        <p class="evo-note">Cars are ordered by launch year. Click a row to open that car. For 0-100 km/h, a longer bar means quicker.</p>
+    </section>
+
+    <!-- History timeline -->
+    <section id="history" class="history">
+        <p class="section-small">SINCE 1947</p>
+        <h2 class="section-title">A short history of <span>Ferrari</span></h2>
+
+        <div class="timeline">
+            <div class="t-item reveal">
+                <div class="t-year">1947</div>
+                <div class="t-body">
+                    <h3>The first Ferrari</h3>
+                    <p>The 125 S, the first car to carry the Ferrari name, is built in Maranello, Italy. It has a 1.5L V12 engine.</p>
+                </div>
+            </div>
+            <div class="t-item reveal">
+                <div class="t-year">1951</div>
+                <div class="t-body">
+                    <h3>First Formula 1 win</h3>
+                    <p>José Froilán González wins the British Grand Prix at Silverstone, Ferrari's first victory in the F1 World Championship.</p>
+                </div>
+            </div>
+            <div class="t-item reveal">
+                <div class="t-year">1969</div>
+                <div class="t-body">
+                    <h3>Fiat joins</h3>
+                    <p>Fiat buys a major stake in Ferrari, giving the company the money to grow its road car production.</p>
+                </div>
+            </div>
+            <div class="t-item reveal">
+                <div class="t-year">1988</div>
+                <div class="t-body">
+                    <h3>The end of an era</h3>
+                    <p>Enzo Ferrari passes away at the age of 90. The F40 is the last Ferrari he oversaw.</p>
+                </div>
+            </div>
+            <div class="t-item reveal">
+                <div class="t-year">2000</div>
+                <div class="t-body">
+                    <h3>The Schumacher years</h3>
+                    <p>Michael Schumacher wins Ferrari's first drivers' title in 21 years, starting a run of five championships in a row.</p>
+                </div>
+            </div>
+            <div class="t-item reveal">
+                <div class="t-year">2013</div>
+                <div class="t-body">
+                    <h3>LaFerrari</h3>
+                    <p>Ferrari launches its first hybrid hypercar, combining a V12 engine with an electric motor.</p>
+                </div>
+            </div>
+            <div class="t-item reveal">
+                <div class="t-year">2019</div>
+                <div class="t-body">
+                    <h3>SF90 Stradale</h3>
+                    <p>The first plug-in hybrid Ferrari and the first series-production Ferrari with all-wheel drive.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Back to top -->
+    <button id="to-top" class="to-top" aria-label="Back to top">&uarr;</button>
+
+    <!-- Compare bar (appears when you pick cars) -->
+    <div id="compare-bar" class="compare-bar" hidden>
+        <div id="compare-chips" class="compare-chips"></div>
+        <button id="compare-go" class="compare-go" disabled>Compare</button>
+        <button id="compare-clear" class="compare-clear">Clear</button>
+    </div>
+
+    <!-- Pop-up (used for car details and for compare) -->
     <div id="modal" class="modal" hidden>
-        <div class="modal-box">
+        <div class="modal-box" id="modal-box">
             <button id="modal-close" class="modal-close" aria-label="Close">&times;</button>
             <div id="modal-content"></div>
         </div>
