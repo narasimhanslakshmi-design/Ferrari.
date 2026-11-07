@@ -162,6 +162,625 @@
         <p>Figures are approximate factory numbers and can vary by version and source.</p>
     </footer>
 
-    <script src="script.js"></script>
+    <script>
+// ===========================================================
+//  FERRARI DATA
+//  This is just like an array of structs in C!
+//  Each { ... } below is one car, like one "struct Car".
+//  To add a car, copy one block, paste it with a comma, and edit it.
+// ===========================================================
+const cars = [
+    {
+        id: "f40",
+        name: "F40",
+        year: 1987,
+        category: "Supercar",
+        cyl: 8,
+        hybrid: false,
+        engine: "2.9L twin-turbo V8",
+        hp: 471,
+        zeroTo100: 4.7,
+        topSpeed: 324,
+        drivetrain: "Rear-wheel drive",
+        transmission: "5-speed manual",
+        tires: "Goodyear Eagle F1 (front 245/40 ZR17, rear 335/35 ZR17)",
+        desc: "The last Ferrari approved by Enzo Ferrari himself. Raw, light and loud, with no driver aids at all."
+    },
+    {
+        id: "testarossa",
+        name: "Testarossa",
+        year: 1984,
+        category: "Classic",
+        cyl: 12,
+        hybrid: false,
+        engine: "4.9L flat-12",
+        hp: 385,
+        zeroTo100: 5.8,
+        topSpeed: 290,
+        drivetrain: "Rear-wheel drive",
+        transmission: "5-speed manual",
+        tires: "Michelin TRX (front 240/45 VR415, rear 280/45 VR415)",
+        desc: "The icon of the 1980s, famous for its wide body and the side strakes that feed its flat-12 engine."
+    },
+    {
+        id: "enzo",
+        name: "Enzo",
+        year: 2002,
+        category: "Hypercar",
+        cyl: 12,
+        hybrid: false,
+        engine: "6.0L V12",
+        hp: 651,
+        zeroTo100: 3.3,
+        topSpeed: 350,
+        drivetrain: "Rear-wheel drive",
+        transmission: "6-speed paddle-shift (F1)",
+        tires: "Bridgestone Potenza (front 245/35 ZR19, rear 345/35 ZR19)",
+        desc: "Named after the founder. Built with Formula 1 technology and carbon fibre, limited to 400 cars."
+    },
+    {
+        id: "458-italia",
+        name: "458 Italia",
+        year: 2009,
+        category: "Supercar",
+        cyl: 8,
+        hybrid: false,
+        engine: "4.5L naturally aspirated V8",
+        hp: 570,
+        zeroTo100: 3.4,
+        topSpeed: 325,
+        drivetrain: "Rear-wheel drive",
+        transmission: "7-speed dual-clutch",
+        tires: "Pirelli P Zero (front 235/35 R20, rear 295/35 R20)",
+        desc: "Loved for its screaming 9,000 rpm V8. Many fans call it the best-sounding modern Ferrari."
+    },
+    {
+        id: "laferrari",
+        name: "LaFerrari",
+        year: 2013,
+        category: "Hypercar",
+        cyl: 12,
+        hybrid: true,
+        engine: "6.3L V12 + electric motor (HY-KERS)",
+        hp: 963,
+        zeroTo100: 2.9,
+        topSpeed: 350,
+        drivetrain: "Rear-wheel drive",
+        transmission: "7-speed dual-clutch",
+        tires: "Pirelli P Zero Corsa (front 265/30 R19, rear 345/30 R20)",
+        desc: "Ferrari's first hybrid hypercar. The V12 and the electric motor together make almost 1,000 hp."
+    },
+    {
+        id: "488-gtb",
+        name: "488 GTB",
+        year: 2015,
+        category: "Supercar",
+        cyl: 8,
+        hybrid: false,
+        engine: "3.9L twin-turbo V8",
+        hp: 661,
+        zeroTo100: 3.0,
+        topSpeed: 330,
+        drivetrain: "Rear-wheel drive",
+        transmission: "7-speed dual-clutch",
+        tires: "Pirelli P Zero (front 245/35 R20, rear 305/30 R20)",
+        desc: "Brought turbochargers back to the mid-engined V8 line, with huge torque and sharp handling."
+    },
+    {
+        id: "812-superfast",
+        name: "812 Superfast",
+        year: 2017,
+        category: "Grand Tourer",
+        cyl: 12,
+        hybrid: false,
+        engine: "6.5L naturally aspirated V12",
+        hp: 789,
+        zeroTo100: 2.9,
+        topSpeed: 340,
+        drivetrain: "Rear-wheel drive",
+        transmission: "7-speed dual-clutch",
+        tires: "Pirelli P Zero (front 275/35 R20, rear 315/35 R20)",
+        desc: "One of the most powerful naturally aspirated road cars ever built, with a front-mounted V12."
+    },
+    {
+        id: "roma",
+        name: "Roma",
+        year: 2020,
+        category: "Grand Tourer",
+        cyl: 8,
+        hybrid: false,
+        engine: "3.9L twin-turbo V8",
+        hp: 612,
+        zeroTo100: 3.4,
+        topSpeed: 320,
+        drivetrain: "Rear-wheel drive",
+        transmission: "8-speed dual-clutch",
+        tires: "Pirelli P Zero (front 245/35 R20, rear 285/35 R20)",
+        desc: "An elegant front-engined coupe inspired by the 1950s and 60s 'La Dolce Vita' era of Rome."
+    },
+    {
+        id: "sf90",
+        name: "SF90 Stradale",
+        year: 2019,
+        category: "Hybrid Hypercar",
+        cyl: 8,
+        hybrid: true,
+        engine: "4.0L twin-turbo V8 + 3 electric motors",
+        hp: 986,
+        zeroTo100: 2.5,
+        topSpeed: 340,
+        drivetrain: "All-wheel drive (plug-in hybrid)",
+        transmission: "8-speed dual-clutch",
+        tires: "Pirelli P Zero (front 255/35 R20, rear 315/35 R20)",
+        desc: "Ferrari's first plug-in hybrid and first series-production car with all-wheel drive."
+    },
+    {
+        id: "296-gtb",
+        name: "296 GTB",
+        year: 2022,
+        category: "Hybrid Supercar",
+        cyl: 6,
+        hybrid: true,
+        engine: "3.0L twin-turbo V6 + electric motor",
+        hp: 819,
+        zeroTo100: 2.9,
+        topSpeed: 330,
+        drivetrain: "Rear-wheel drive (plug-in hybrid)",
+        transmission: "8-speed dual-clutch",
+        tires: "Pirelli P Zero (front 245/35 R20, rear 305/30 R20)",
+        desc: "A small V6 and an electric motor produce over 800 hp. It is a new chapter for Ferrari."
+    }
+];
+
+// ===========================================================
+//  PAGE LOGIC
+// ===========================================================
+const grid = document.getElementById("grid");
+const searchBox = document.getElementById("search");
+const sortBox = document.getElementById("sort");
+const noResults = document.getElementById("no-results");
+const modal = document.getElementById("modal");
+const modalBox = document.getElementById("modal-box");
+const modalContent = document.getElementById("modal-content");
+const compareBar = document.getElementById("compare-bar");
+const compareChips = document.getElementById("compare-chips");
+const compareGo = document.getElementById("compare-go");
+
+let currentFilter = "all";
+let compareIds = [];          // the ids of the cars picked for comparing (max 2)
+
+// ----- Helpers -----
+function getCar(id) {
+    return cars.find(function (c) { return c.id === id; });
+}
+
+// Does this car match the selected filter button?
+function matchesFilter(car) {
+    if (currentFilter === "all") return true;
+    if (currentFilter === "v12") return car.cyl === 12;
+    if (currentFilter === "v8") return car.cyl === 8;
+    if (currentFilter === "hybrid") return car.hybrid;
+    return true;
+}
+
+// ----- Photos -----
+// The page looks for images/<id>.jpg, then .jpeg, .png, .webp.
+// If none exist, the styled placeholder with the model name stays.
+const IMG_EXTENSIONS = ["jpg", "jpeg", "png", "webp"];
+
+function nextImage(img) {
+    const i = Number(img.dataset.i) + 1;
+    if (i < IMG_EXTENSIONS.length) {
+        img.dataset.i = i;
+        img.src = "images/" + img.dataset.id + "." + IMG_EXTENSIONS[i];
+    } else {
+        img.remove();
+    }
+}
+
+function imageHTML(car, withCompareButton) {
+    const btn = withCompareButton
+        ? `<button class="compare-btn" data-id="${car.id}"
+                   onclick="toggleCompare(event, '${car.id}')">+ Compare</button>`
+        : "";
+    return `
+        <div class="car-img">
+            <span class="badge">${car.category}</span>
+            ${btn}
+            <span class="ghost">${car.name}</span>
+            <img src="images/${car.id}.jpg" data-id="${car.id}" data-i="0"
+                 alt="Ferrari ${car.name}" loading="lazy"
+                 onload="this.classList.add('loaded')" onerror="nextImage(this)">
+        </div>`;
+}
+
+// ----- Show the cards -----
+function showCars() {
+    const text = searchBox.value.toLowerCase();
+
+    // 1. Pick the cars that match search + filter
+    let list = cars.filter(function (car) {
+        return car.name.toLowerCase().includes(text) && matchesFilter(car);
+    });
+
+    // 2. Sort them
+    const sortType = sortBox.value;
+    list.sort(function (a, b) {
+        if (sortType === "year-new") return b.year - a.year;
+        if (sortType === "year-old") return a.year - b.year;
+        if (sortType === "hp-high") return b.hp - a.hp;
+        if (sortType === "speed-high") return b.topSpeed - a.topSpeed;
+        return 0;
+    });
+
+    // 3. Draw them
+    grid.innerHTML = list.map(function (car, index) {
+        const delay = (index % 4) * 80;
+        return `
+            <article class="car-card reveal" data-id="${car.id}"
+                     style="animation-delay:${delay}ms"
+                     onclick="openModal('${car.id}')">
+                ${imageHTML(car, true)}
+                <div class="car-info">
+                    <div class="car-year">${car.year}</div>
+                    <h2>${car.name}</h2>
+                    <p class="car-engine">${car.engine}</p>
+                    <div class="mini-stats">
+                        <div><strong>${car.hp}</strong><span>hp</span></div>
+                        <div><strong>${car.zeroTo100}s</strong><span>0-100</span></div>
+                        <div><strong>${car.topSpeed}</strong><span>km/h</span></div>
+                    </div>
+                </div>
+            </article>`;
+    }).join("");
+
+    noResults.hidden = list.length > 0;
+    updateCompareUI();
+    observeReveals();
+}
+
+// ----- Fade-in when scrolling -----
+const revealObserver = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+            entry.target.classList.add("visible");
+            revealObserver.unobserve(entry.target);
+        }
+    });
+}, { threshold: 0.12 });
+
+function observeReveals() {
+    document.querySelectorAll(".reveal:not(.visible)").forEach(function (el) {
+        revealObserver.observe(el);
+    });
+}
+
+// ----- Detail pop-up -----
+function openModal(id) {
+    const car = getCar(id);
+
+    // Bars are shown relative to the best values among all cars
+    const hpPercent = Math.round((car.hp / 1000) * 100);
+    const speedPercent = Math.round((car.topSpeed / 360) * 100);
+    const accelPercent = Math.round(((6 - car.zeroTo100) / 3.5) * 100);
+
+    modalBox.classList.remove("wide");
+    modalContent.innerHTML = `
+        ${imageHTML(car, false)}
+        <div class="modal-body">
+            <div class="car-year">${car.year}</div>
+            <h2>Ferrari ${car.name}</h2>
+            <p class="modal-desc">${car.desc}</p>
+
+            <div class="bar-row">
+                <div class="bar-label">${car.hp} hp <span>Power</span></div>
+                <div class="bar-track"><div class="bar-fill" style="width:${hpPercent}%"></div></div>
+            </div>
+            <div class="bar-row">
+                <div class="bar-label">${car.topSpeed} km/h <span>Top speed</span></div>
+                <div class="bar-track"><div class="bar-fill" style="width:${speedPercent}%"></div></div>
+            </div>
+            <div class="bar-row">
+                <div class="bar-label">${car.zeroTo100} s <span>0-100 km/h (longer bar = quicker)</span></div>
+                <div class="bar-track"><div class="bar-fill" style="width:${accelPercent}%"></div></div>
+            </div>
+
+            <div class="spec-table">
+                <div class="spec"><small>Type</small><p>${car.category}</p></div>
+                <div class="spec"><small>Year</small><p>${car.year}</p></div>
+                <div class="spec wide"><small>Engine</small><p>${car.engine}</p></div>
+                <div class="spec"><small>Drivetrain</small><p>${car.drivetrain}</p></div>
+                <div class="spec"><small>Transmission</small><p>${car.transmission}</p></div>
+                <div class="spec wide"><small>Tires</small><p>${car.tires}</p></div>
+            </div>
+        </div>`;
+
+    showModal();
+}
+
+function showModal() {
+    modal.classList.remove("closing");
+    modal.hidden = false;
+    modalBox.scrollTop = 0;
+    document.body.style.overflow = "hidden";
+}
+
+function closeModal() {
+    if (modal.hidden || modal.classList.contains("closing")) return;
+    modal.classList.add("closing");               // fade out first...
+    setTimeout(function () {                      // ...then hide
+        modal.hidden = true;
+        modal.classList.remove("closing");
+        document.body.style.overflow = "";
+    }, 200);
+}
+
+// ===========================================================
+//  COMPARE MODE
+// ===========================================================
+function toggleCompare(event, id) {
+    event.stopPropagation();               // don't open the detail pop-up
+
+    const position = compareIds.indexOf(id);
+    if (position !== -1) {
+        compareIds.splice(position, 1);    // already picked: remove it
+    } else {
+        if (compareIds.length === 2) {
+            compareIds.shift();            // 2 already picked: drop the oldest
+        }
+        compareIds.push(id);
+    }
+    updateCompareUI();
+}
+
+function updateCompareUI() {
+    // Update every card's button
+    document.querySelectorAll(".car-card").forEach(function (card) {
+        const picked = compareIds.includes(card.dataset.id);
+        const btn = card.querySelector(".compare-btn");
+        card.classList.toggle("selected", picked);
+        btn.classList.toggle("selected", picked);
+        btn.textContent = picked ? "\u2713 Selected" : "+ Compare";
+    });
+
+    // Update the bar at the bottom
+    compareBar.hidden = compareIds.length === 0;
+    document.body.classList.toggle("has-compare-bar", compareIds.length > 0);
+
+    if (compareIds.length === 1) {
+        compareChips.innerHTML = "<b>" + getCar(compareIds[0]).name + "</b> &middot; pick one more car";
+    } else if (compareIds.length === 2) {
+        compareChips.innerHTML = "<b>" + getCar(compareIds[0]).name + "</b> vs <b>" +
+                                 getCar(compareIds[1]).name + "</b>";
+    }
+    compareGo.disabled = compareIds.length < 2;
+}
+
+// Builds one row of the compare table.
+// mode: "high" = bigger number wins, "low" = smaller number wins, "none" = text only
+function compareRow(label, valueA, valueB, mode, numA, numB) {
+    let winA = false;
+    let winB = false;
+    if (mode === "high") {
+        winA = numA > numB;
+        winB = numB > numA;
+    } else if (mode === "low") {
+        winA = numA < numB;
+        winB = numB < numA;
+    }
+    return `
+        <div class="cmp-row">
+            <div class="cmp-label">${label}</div>
+            <div class="cmp-cell ${winA ? "win" : ""}">${valueA}</div>
+            <div class="cmp-cell ${winB ? "win" : ""}">${valueB}</div>
+        </div>`;
+}
+
+function openCompare() {
+    const a = getCar(compareIds[0]);
+    const b = getCar(compareIds[1]);
+
+    // Count who wins more of the 3 performance numbers
+    let scoreA = 0;
+    let scoreB = 0;
+    if (a.hp > b.hp) scoreA++; else if (b.hp > a.hp) scoreB++;
+    if (a.topSpeed > b.topSpeed) scoreA++; else if (b.topSpeed > a.topSpeed) scoreB++;
+    if (a.zeroTo100 < b.zeroTo100) scoreA++; else if (b.zeroTo100 < a.zeroTo100) scoreB++;
+
+    let verdict;
+    if (scoreA > scoreB) {
+        verdict = a.name + " wins " + scoreA + " of 3 performance categories.";
+    } else if (scoreB > scoreA) {
+        verdict = b.name + " wins " + scoreB + " of 3 performance categories.";
+    } else {
+        verdict = "These two are evenly matched on performance.";
+    }
+
+    // A little history: how far apart are these two cars?
+    const older = a.year <= b.year ? a : b;
+    const newer = a.year <= b.year ? b : a;
+    const yearGap = newer.year - older.year;
+    const hpGap = Math.abs(newer.hp - older.hp);
+    let history;
+    if (yearGap === 0) {
+        history = "Both cars launched in " + a.year + ".";
+    } else {
+        history = newer.name + " arrived " + yearGap + (yearGap === 1 ? " year" : " years") +
+                  " after " + older.name;
+        if (newer.hp > older.hp) history += " and makes " + hpGap + " hp more.";
+        else if (newer.hp < older.hp) history += " but makes " + hpGap + " hp less.";
+        else history += " with the same power.";
+    }
+
+    modalBox.classList.add("wide");
+    modalContent.innerHTML = `
+        <div class="modal-body">
+            <h2 class="cmp-title">Head to head</h2>
+            <p class="cmp-verdict">${verdict}</p>
+            <p class="cmp-history">${history}</p>
+
+            <div class="cmp-row head">
+                <div></div>
+                <div class="cmp-name">${a.name}<small>${a.year} &middot; ${a.category}</small></div>
+                <div class="cmp-name">${b.name}<small>${b.year} &middot; ${b.category}</small></div>
+            </div>
+            ${compareRow("Launched", a.year, b.year, "none")}
+            ${compareRow("Engine", a.engine, b.engine, "none")}
+            ${compareRow("Power", a.hp + " hp", b.hp + " hp", "high", a.hp, b.hp)}
+            ${compareRow("0-100 km/h", a.zeroTo100 + " s", b.zeroTo100 + " s", "low", a.zeroTo100, b.zeroTo100)}
+            ${compareRow("Top speed", a.topSpeed + " km/h", b.topSpeed + " km/h", "high", a.topSpeed, b.topSpeed)}
+            ${compareRow("Drivetrain", a.drivetrain, b.drivetrain, "none")}
+            ${compareRow("Gearbox", a.transmission, b.transmission, "none")}
+            ${compareRow("Tires", a.tires, b.tires, "none")}
+        </div>`;
+
+    showModal();
+}
+
+// ===========================================================
+//  HERO NUMBERS (count up when the page loads)
+// ===========================================================
+function countUp(elementId, target) {
+    const element = document.getElementById(elementId);
+    const duration = 1200;                 // milliseconds
+    const start = performance.now();
+
+    function step(now) {
+        const progress = Math.min((now - start) / duration, 1);
+        element.textContent = Math.round(target * progress);
+        if (progress < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+}
+
+function startHeroStats() {
+    let maxHp = 0;
+    let maxSpeed = 0;
+    cars.forEach(function (car) {
+        if (car.hp > maxHp) maxHp = car.hp;
+        if (car.topSpeed > maxSpeed) maxSpeed = car.topSpeed;
+    });
+    countUp("stat-models", cars.length);
+    countUp("stat-hp", maxHp);
+    countUp("stat-speed", maxSpeed);
+}
+
+// ===========================================================
+//  EVENTS: what happens when the user clicks or types
+// ===========================================================
+searchBox.addEventListener("input", showCars);
+sortBox.addEventListener("change", showCars);
+
+document.querySelectorAll(".filter-btn").forEach(function (button) {
+    button.addEventListener("click", function () {
+        document.querySelector(".filter-btn.active").classList.remove("active");
+        button.classList.add("active");
+        currentFilter = button.dataset.filter;
+        showCars();
+    });
+});
+
+compareGo.addEventListener("click", openCompare);
+document.getElementById("compare-clear").addEventListener("click", function () {
+    compareIds = [];
+    updateCompareUI();
+});
+
+document.getElementById("modal-close").addEventListener("click", closeModal);
+modal.addEventListener("click", function (e) {
+    if (e.target === modal) closeModal();   // click outside the box
+});
+document.addEventListener("keydown", function (e) {
+    if (e.key === "Escape") closeModal();
+});
+
+// ===========================================================
+//  POWER EVOLUTION CHART (all cars lined up by launch year)
+// ===========================================================
+const evoChart = document.getElementById("evo-chart");
+let evoMetric = "hp";
+let evoVisible = false;
+
+function renderEvolution() {
+    // oldest car first
+    const ordered = cars.slice().sort(function (a, b) { return a.year - b.year; });
+
+    evoChart.innerHTML = ordered.map(function (car) {
+        let percent;
+        let label;
+        if (evoMetric === "hp") {
+            percent = (car.hp / 1000) * 100;
+            label = car.hp + " hp";
+        } else if (evoMetric === "speed") {
+            percent = (car.topSpeed / 360) * 100;
+            label = car.topSpeed + " km/h";
+        } else {
+            percent = ((6.5 - car.zeroTo100) / 4.2) * 100;   // quicker = longer bar
+            label = car.zeroTo100 + " s";
+        }
+        return `
+            <div class="evo-row" onclick="openModal('${car.id}')">
+                <div class="evo-year">${car.year}</div>
+                <div class="evo-name">${car.name}</div>
+                <div class="evo-track"><div class="evo-fill" style="--w:${Math.round(percent)}%"></div></div>
+                <div class="evo-value">${label}</div>
+            </div>`;
+    }).join("");
+
+    // replay the growing animation
+    evoChart.classList.remove("go");
+    void evoChart.offsetWidth;
+    setTimeout(function () {
+        if (evoVisible) evoChart.classList.add("go");
+    }, 40);
+}
+
+// start the bars growing when the chart scrolls into view
+const evoObserver = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+            evoVisible = true;
+            evoChart.classList.add("go");
+            evoObserver.disconnect();
+        }
+    });
+}, { threshold: 0.2 });
+evoObserver.observe(evoChart);
+
+document.querySelectorAll(".evo-btn").forEach(function (button) {
+    button.addEventListener("click", function () {
+        document.querySelector(".evo-btn.active").classList.remove("active");
+        button.classList.add("active");
+        evoMetric = button.dataset.metric;
+        renderEvolution();
+    });
+});
+
+// ===========================================================
+//  SCROLL PROGRESS BAR + BACK-TO-TOP BUTTON
+// ===========================================================
+const progressBar = document.getElementById("progress");
+const toTop = document.getElementById("to-top");
+
+function onScroll() {
+    const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+    const percent = maxScroll > 0 ? (window.scrollY / maxScroll) * 100 : 0;
+    progressBar.style.width = percent + "%";
+    toTop.classList.toggle("show", window.scrollY > 600);
+}
+
+window.addEventListener("scroll", onScroll, { passive: true });
+toTop.addEventListener("click", function () {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+});
+
+// ----- Start -----
+showCars();
+renderEvolution();
+startHeroStats();
+observeReveals();
+onScroll();
+
+</script>
 </body>
 </html>
