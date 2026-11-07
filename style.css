@@ -23,4 +23,15 @@ h1 {
 .card h2 {
     color: #dc0000;
     margin-top: 0;
+
+}
+.grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+}
+
+.card {
+    width: 400px;
 }
