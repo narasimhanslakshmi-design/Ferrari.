@@ -1238,6 +1238,450 @@ body.has-compare-bar .to-top {
     }
 }
 
+
+
+/* ===========================================================
+   VISUAL UPGRADE 01 — premium editorial finish
+   This layer changes presentation only; existing site features
+   and JavaScript behavior are intentionally left untouched.
+   =========================================================== */
+:root {
+    --red: #e10600;
+    --red-dark: #a80700;
+    --shadow: 0 14px 38px rgba(12, 18, 28, 0.10);
+    --shadow-hover: 0 22px 52px rgba(225, 6, 0, 0.18);
+}
+
+body {
+    letter-spacing: -0.01em;
+}
+
+.navbar {
+    min-height: 76px;
+    padding-inline: clamp(20px, 6vw, 92px);
+    box-shadow: 0 5px 24px rgba(12, 18, 28, 0.045);
+}
+
+.logo {
+    font-size: 22px;
+    letter-spacing: 3.5px;
+}
+
+.nav-links a {
+    position: relative;
+    padding-block: 8px;
+    font-weight: 600;
+    letter-spacing: 1.2px;
+    transition: color .2s ease;
+}
+
+.nav-links a::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 100%;
+    bottom: 0;
+    height: 2px;
+    background: var(--red);
+    transition: right .22s ease;
+}
+
+.nav-links a:hover::after,
+.nav-links a:focus-visible::after {
+    right: 0;
+}
+
+.theme-toggle,
+.hero-button,
+.filter-btn,
+.evo-btn,
+.compare-go,
+.compare-clear {
+    transition: transform .2s ease, background-color .2s ease,
+                color .2s ease, border-color .2s ease, box-shadow .2s ease;
+}
+
+.theme-toggle:hover,
+.filter-btn:hover,
+.evo-btn:hover {
+    transform: translateY(-2px);
+}
+
+.hero {
+    min-height: min(820px, calc(100svh - 76px));
+    isolation: isolate;
+}
+
+.hero-content {
+    padding-top: clamp(72px, 12vh, 140px);
+    max-width: 1160px;
+}
+
+.hero-small,
+.section-small {
+    letter-spacing: .32em;
+    font-weight: 700;
+}
+
+.hero h1 {
+    letter-spacing: -.035em;
+    line-height: .98;
+    text-wrap: balance;
+}
+
+.hero-text {
+    max-width: 620px;
+    margin-inline: auto;
+    line-height: 1.8;
+}
+
+.hero-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 48px;
+    padding: 0 26px;
+    border-radius: 3px;
+    font-weight: 700;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    box-shadow: 0 10px 26px rgba(0, 0, 0, .18);
+}
+
+.hero-button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 32px rgba(0, 0, 0, .24);
+}
+
+.hero-stats {
+    width: min(760px, 88%);
+    margin: 0 auto 34px;
+    padding: 20px 12px;
+    border: 1px solid rgba(255,255,255,.24);
+    border-radius: 8px;
+    background: rgba(10, 13, 19, .28);
+    backdrop-filter: blur(14px);
+}
+
+.hero-stats strong {
+    font-variant-numeric: tabular-nums;
+}
+
+.controls {
+    padding-top: 64px;
+    padding-bottom: 18px;
+}
+
+#search,
+#sort {
+    min-height: 48px;
+    box-shadow: 0 5px 18px rgba(12, 18, 28, .055);
+}
+
+#search:focus-visible,
+#sort:focus-visible,
+button:focus-visible,
+a:focus-visible {
+    outline: 3px solid rgba(225, 6, 0, .35);
+    outline-offset: 3px;
+}
+
+.compare-tip {
+    color: var(--muted);
+    text-align: center;
+    padding-inline: 20px;
+}
+
+.grid {
+    gap: clamp(18px, 2.2vw, 30px);
+    padding-top: 28px;
+}
+
+.car-card {
+    border-radius: 9px;
+    box-shadow: 0 8px 28px rgba(12, 18, 28, .075);
+}
+
+.car-card:hover {
+    transform: translateY(-7px);
+}
+
+.car-img {
+    overflow: hidden;
+}
+
+.car-img img {
+    transition: transform .55s cubic-bezier(.2,.7,.2,1);
+}
+
+.car-card:hover .car-img img {
+    transform: scale(1.045);
+}
+
+.banner {
+    min-height: 390px;
+}
+
+.banner .section-title {
+    letter-spacing: -.025em;
+    text-wrap: balance;
+}
+
+.evolution,
+.history {
+    max-width: 1120px;
+    margin-inline: auto;
+}
+
+.evolution {
+    padding-inline: clamp(20px, 6vw, 80px);
+}
+
+.history {
+    padding-inline: clamp(20px, 6vw, 80px);
+}
+
+.to-top {
+    box-shadow: 0 8px 24px rgba(0, 0, 0, .18);
+}
+
+@media (max-width: 760px) {
+    .navbar {
+        min-height: 66px;
+        padding: 12px 18px;
+        gap: 12px;
+    }
+
+    .logo {
+        font-size: 17px;
+        letter-spacing: 2px;
+    }
+
+    .nav-right {
+        gap: 12px;
+    }
+
+    .nav-links {
+        gap: 12px;
+    }
+
+    .nav-links a {
+        font-size: 11px;
+        letter-spacing: .4px;
+    }
+
+    .theme-toggle {
+        padding: 7px 10px;
+        font-size: 12px;
+    }
+
+    .hero {
+        min-height: 680px;
+    }
+
+    .hero-content {
+        padding-top: 100px;
+    }
+
+    .hero-stats {
+        width: calc(100% - 32px);
+        margin-bottom: 20px;
+    }
+
+    .grid {
+        grid-template-columns: repeat(auto-fit, minmax(min(100%, 270px), 1fr));
+        padding-inline: 18px;
+    }
+
+    .banner {
+        min-height: 310px;
+        padding-inline: 22px;
+    }
+}
+
+@media (max-width: 430px) {
+    .nav-links {
+        gap: 8px;
+    }
+
+    .nav-links a {
+        font-size: 10px;
+    }
+
+    .logo span {
+        display: none;
+    }
+
+    .hero-stats {
+        gap: 10px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        scroll-behavior: auto !important;
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: .01ms !important;
+    }
+}
+
+
+/* VISUAL UPGRADE 02 — motorsport legacy section */
+.motorsport { background: var(--bg, #fff); }
+.banner-motorsport {
+    min-height: 360px;
+    background: linear-gradient(120deg, rgba(8,10,14,.96), rgba(42,8,8,.84)),
+                radial-gradient(circle at 78% 35%, rgba(225,6,0,.45), transparent 38%);
+}
+.motorsport-wrap {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 76px clamp(20px, 5vw, 64px) 84px;
+}
+.motorsport-intro { max-width: 720px; margin: 0 auto 42px; text-align: center; }
+.motorsport-kicker, .achievement-tag {
+    color: var(--red, #e10600);
+    font-size: 10px; font-weight: 800; letter-spacing: .2em;
+}
+.motorsport-intro h3, .racing-timeline-heading h3, .other-racing h3 {
+    margin: 12px 0; font-size: clamp(28px, 4vw, 42px); letter-spacing: -.04em;
+}
+.motorsport-intro h3 span, .racing-timeline-heading h3 span { color: var(--red, #e10600); }
+.motorsport-intro > p:last-child {
+    color: var(--muted); line-height: 1.8; font-size: 15px;
+}
+.achievement-grid {
+    display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px;
+}
+.achievement-card {
+    position: relative; overflow: hidden; display: flex; flex-direction: column;
+    min-height: 390px; padding: 27px; border-radius: 9px;
+    background: var(--card, #f7f7f7); border: 1px solid var(--border, #e5e5e5);
+    box-shadow: 0 10px 30px rgba(0,0,0,.06);
+}
+.achievement-card::before {
+    content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 4px;
+    background: var(--red, #e10600);
+}
+.achievement-top { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.achievement-mark { color: var(--muted); font-size: 12px; font-weight: 800; }
+.achievement-card h3 { margin: 27px 0 10px; font-size: 25px; letter-spacing: -.03em; }
+.achievement-desc { min-height: 74px; color: var(--muted); line-height: 1.7; font-size: 14px; }
+.achievement-stats {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 20px 0;
+    padding: 17px 0; border-top: 1px solid var(--border, #ddd); border-bottom: 1px solid var(--border, #ddd);
+}
+.achievement-stats div { display: flex; flex-direction: column; gap: 5px; }
+.achievement-stats strong { font-size: clamp(25px, 3vw, 34px); color: var(--red, #e10600); line-height: 1; }
+.achievement-stats span { color: var(--muted); font-size: 11px; line-height: 1.4; }
+.achievement-foot { color: var(--muted); font-size: 12px; line-height: 1.65; flex: 1; }
+.achievement-card a { display: inline-block; margin-top: 18px; color: var(--red, #e10600); font-size: 12px; font-weight: 800; text-decoration: none; }
+.achievement-card a:hover { text-decoration: underline; }
+.racing-timeline-heading { margin: 88px 0 30px; text-align: center; }
+.racing-timeline { max-width: 850px; margin: 0 auto; position: relative; }
+.racing-timeline::before {
+    content: ""; position: absolute; top: 10px; bottom: 10px; left: 54px;
+    width: 1px; background: var(--border, #ddd);
+}
+.racing-moment { display: grid; grid-template-columns: 110px 1fr; gap: 22px; position: relative; padding: 0 0 30px; }
+.racing-year { color: var(--red, #e10600); font-size: 19px; font-weight: 900; text-align: right; }
+.racing-moment > div { padding: 0 0 18px 24px; border-bottom: 1px solid var(--border, #e5e5e5); }
+.racing-moment h4 { margin: 0 0 7px; font-size: 16px; }
+.racing-moment p { margin: 0; color: var(--muted); font-size: 13px; line-height: 1.7; }
+.other-racing { margin-top: 62px; padding: 34px; border-radius: 9px; background: var(--surface, #f4f4f4); }
+.other-racing h3 { margin-bottom: 25px; }
+.other-racing-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+.other-racing-grid strong { color: var(--red, #e10600); font-size: 15px; letter-spacing: .05em; }
+.other-racing-grid p { color: var(--muted); font-size: 13px; line-height: 1.7; }
+.motorsport-note { margin: 28px 0 0; color: var(--muted); font-size: 11px; line-height: 1.6; }
+@media (max-width: 850px) {
+    .achievement-grid { grid-template-columns: 1fr; }
+    .achievement-card { min-height: 0; }
+    .achievement-desc { min-height: 0; }
+    .other-racing-grid { grid-template-columns: 1fr; gap: 12px; }
+}
+@media (max-width: 520px) {
+    .motorsport-wrap { padding-top: 48px; padding-bottom: 54px; }
+    .achievement-card { padding: 22px; }
+    .racing-timeline::before { left: 43px; }
+    .racing-moment { grid-template-columns: 82px 1fr; gap: 10px; }
+    .racing-year { font-size: 16px; }
+    .racing-moment > div { padding-left: 16px; }
+    .other-racing { padding: 24px 20px; }
+}
+
+
+/* VISUAL UPGRADE 03 — 2026 Ferrari newsroom */
+.newsroom { background: var(--bg, #fff); }
+.newsroom-hero {
+    position: relative; overflow: hidden; min-height: 330px; display: grid; place-items: center;
+    padding: 60px 22px; text-align: center; color: #fff;
+    background: radial-gradient(ellipse at 78% 35%, rgba(225,6,0,.42), transparent 38%),
+                linear-gradient(120deg, #08090c 0%, #211012 58%, #09090b 100%);
+}
+.newsroom-hero::after {
+    content: "2026"; position: absolute; right: 4%; bottom: -52px; color: rgba(255,255,255,.035);
+    font-size: clamp(150px, 28vw, 330px); font-weight: 950; letter-spacing: -.08em; line-height: 1;
+}
+.newsroom-hero-inner { position: relative; z-index: 1; }
+.news-kicker { color: #ff514b; font-size: 10px; font-weight: 900; letter-spacing: .28em; }
+.newsroom-hero h2 { margin: 15px 0 10px; font-size: clamp(42px, 7vw, 76px); letter-spacing: -.06em; }
+.newsroom-hero h2 span { color: #f12620; }
+.newsroom-hero-inner > p:not(.news-kicker) { color: rgba(255,255,255,.72); font-size: 15px; }
+.news-focus { display: flex; justify-content: center; align-items: center; gap: 14px; margin-top: 25px; font-size: 9px; letter-spacing: .16em; font-weight: 800; }
+.news-focus i { width: 5px; height: 5px; border-radius: 50%; background: #f12620; }
+.newsroom-wrap { max-width: 1200px; margin: auto; padding: 72px clamp(20px, 5vw, 64px) 80px; }
+.newsroom-heading { display: flex; justify-content: space-between; align-items: end; gap: 35px; margin-bottom: 30px; }
+.newsroom-heading h3, .news-lower-heading h3 { margin: 10px 0 0; font-size: clamp(27px, 4vw, 39px); letter-spacing: -.045em; }
+.newsroom-heading h3 span, .news-lower-heading h3 span { color: var(--red, #e10600); }
+.newsroom-intro { max-width: 390px; color: var(--muted); font-size: 13px; line-height: 1.8; }
+.news-feature-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 22px; }
+.news-feature { overflow: hidden; border: 1px solid var(--border, #e5e5e5); border-radius: 8px; background: var(--card, #fff); box-shadow: 0 8px 28px rgba(0,0,0,.055); }
+.news-feature-main { grid-column: 1 / -1; display: grid; grid-template-columns: 1.05fr 1fr; }
+.news-image { min-height: 210px; position: relative; display: flex; align-items: flex-end; padding: 18px; background-size: cover; background-position: center; }
+.news-feature-main .news-image { min-height: 330px; }
+.news-image::before { content: ""; position: absolute; inset: 0; background: linear-gradient(0deg, rgba(0,0,0,.62), transparent 65%); }
+.news-image span { position: relative; z-index: 1; color: #fff; font-size: 9px; font-weight: 900; letter-spacing: .2em; }
+.news-image-hamilton { background-image: linear-gradient(135deg, #410b0b, #111 70%); }
+.news-image-f1 { background-image: linear-gradient(135deg, #262626, #790d0a 70%, #111); }
+.news-image-wec { background-image: linear-gradient(135deg, #18221e, #a20d08 72%, #111); }
+.news-copy { padding: 24px; }
+.news-feature-main .news-copy { padding: clamp(24px, 4vw, 44px); align-self: center; }
+.news-meta { display: flex; flex-wrap: wrap; gap: 12px; justify-content: space-between; color: var(--muted); font-size: 9px; letter-spacing: .13em; }
+.news-meta b { color: var(--red, #e10600); }
+.news-copy h4 { margin: 17px 0 11px; font-size: clamp(19px, 2.4vw, 25px); line-height: 1.25; letter-spacing: -.025em; }
+.news-feature:not(.news-feature-main) .news-copy h4 { font-size: 19px; }
+.news-copy p { color: var(--muted); font-size: 13px; line-height: 1.8; }
+.news-copy a { display: inline-block; margin-top: 8px; color: var(--red, #e10600); font-size: 11px; font-weight: 850; text-decoration: none; }
+.news-copy a:hover { text-decoration: underline; }
+.news-lower { margin-top: 76px; }
+.news-lower-heading { margin-bottom: 24px; }
+.championship-panels { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+.championship-panel { min-height: 190px; padding: 27px; display: flex; flex-direction: column; justify-content: space-between; border-radius: 7px; color: #fff; text-decoration: none; background: linear-gradient(120deg, #171719, #4b0c0b); transition: transform .2s ease, box-shadow .2s ease; }
+.championship-panel:nth-child(2) { background: linear-gradient(120deg, #111b19, #3b1715); }
+.championship-panel:hover { transform: translateY(-4px); box-shadow: 0 15px 30px rgba(0,0,0,.15); }
+.panel-label { color: #ff625c; font-size: 9px; letter-spacing: .18em; font-weight: 900; }
+.championship-panel strong { font-size: clamp(22px, 3vw, 31px); line-height: 1.15; letter-spacing: -.035em; }
+.panel-link { font-size: 11px; font-weight: 800; color: rgba(255,255,255,.8); }
+.news-disclaimer { margin-top: 28px; color: var(--muted); font-size: 10px; line-height: 1.7; }
+@media (max-width: 760px) {
+    .newsroom-heading { display: block; }
+    .newsroom-intro { margin-top: 15px; }
+    .news-feature-grid { grid-template-columns: 1fr; }
+    .news-feature-main { grid-column: auto; grid-template-columns: 1fr; }
+    .news-feature-main .news-image { min-height: 230px; }
+    .championship-panels { grid-template-columns: 1fr; }
+}
+@media (max-width: 480px) {
+    .news-focus { flex-direction: column; gap: 8px; }
+    .news-focus i { display: none; }
+    .newsroom-wrap { padding-top: 48px; padding-bottom: 54px; }
+    .news-copy, .news-feature-main .news-copy { padding: 21px; }
+}
+
 </style>
     <!-- Photos are stored here, kept apart so the code above stays easy to read -->
     <style id="photos">
@@ -1259,6 +1703,8 @@ body.has-compare-bar .to-top {
         <div class="nav-right">
             <div class="nav-links">
                 <a href="#collection">Collection</a>
+                <a href="#motorsport">Racing legacy</a>
+                <a href="#news">2026 News</a>
                 <a href="#evolution">Evolution</a>
                 <a href="#history">History</a>
             </div>
@@ -1311,6 +1757,192 @@ body.has-compare-bar .to-top {
     <!-- Cars get placed here by the script -->
     <main id="grid" class="grid"></main>
     <p id="no-results" class="no-results" hidden>No Ferrari found. Try another search.</p>
+
+
+    <!-- Ferrari motorsport achievements -->
+    <section id="motorsport" class="motorsport">
+        <div class="banner banner-motorsport">
+            <p class="section-small">MORE THAN A ROAD-CAR LEGEND</p>
+            <h2 class="section-title">The racing <span>legacy</span></h2>
+            <p class="banner-sub">From Grand Prix circuits to 24-hour endurance battles — the Prancing Horse was built to race.</p>
+        </div>
+
+        <div class="motorsport-wrap">
+            <div class="motorsport-intro">
+                <p class="motorsport-kicker">SCUDERIA FERRARI · AF CORSE · FERRARI COMPETIZIONI GT</p>
+                <h3>A history written <span>on track.</span></h3>
+                <p>Ferrari's competition story stretches across single-seater racing, endurance prototypes and customer GT programmes. Explore some of the marque's biggest championship achievements below.</p>
+            </div>
+
+            <div class="achievement-grid">
+                <article class="achievement-card achievement-f1">
+                    <div class="achievement-top">
+                        <span class="achievement-tag">FORMULA 1</span>
+                        <span class="achievement-mark">01</span>
+                    </div>
+                    <h3>Scuderia Ferrari</h3>
+                    <p class="achievement-desc">The only team to have competed in every Formula 1 World Championship season since 1950.</p>
+                    <div class="achievement-stats">
+                        <div><strong>16</strong><span>Constructors' titles</span></div>
+                        <div><strong>15</strong><span>Drivers' titles</span></div>
+                    </div>
+                    <p class="achievement-foot">A championship legacy spanning Alberto Ascari, Juan Manuel Fangio, Niki Lauda, Michael Schumacher and beyond.</p>
+                    <a href="https://www.formula1.com/en/information/ferrari-year-by-year.61yfcjhl05vSlmNJB1SIJ0" target="_blank" rel="noopener">Explore Ferrari's F1 history ↗</a>
+                </article>
+
+                <article class="achievement-card achievement-lemans">
+                    <div class="achievement-top">
+                        <span class="achievement-tag">24 HOURS OF LE MANS</span>
+                        <span class="achievement-mark">02</span>
+                    </div>
+                    <h3>La Sarthe legends</h3>
+                    <p class="achievement-desc">Ferrari has claimed 12 overall victories at the world's most famous endurance race.</p>
+                    <div class="achievement-stats">
+                        <div><strong>12</strong><span>Overall victories</span></div>
+                        <div><strong>3</strong><span>Consecutive wins, 2023–25</span></div>
+                    </div>
+                    <p class="achievement-foot">The 499P brought Ferrari back to the top in 2023, then repeated the achievement in 2024 and 2025.</p>
+                    <a href="https://www.lemans.racing/en/museum/winners-by-manufacturer" target="_blank" rel="noopener">View Le Mans winners ↗</a>
+                </article>
+
+                <article class="achievement-card achievement-wec">
+                    <div class="achievement-top">
+                        <span class="achievement-tag">FIA WORLD ENDURANCE CHAMPIONSHIP</span>
+                        <span class="achievement-mark">03</span>
+                    </div>
+                    <h3>The 499P era</h3>
+                    <p class="achievement-desc">Ferrari returned to the top class of world endurance racing with the 499P in 2023.</p>
+                    <div class="achievement-stats">
+                        <div><strong>2025</strong><span>Manufacturers' champion</span></div>
+                        <div><strong>2025</strong><span>Drivers' champion</span></div>
+                    </div>
+                    <p class="achievement-foot">Antonio Giovinazzi, James Calado and Alessandro Pier Guidi secured the 2025 Drivers' crown in the #51 499P.</p>
+                    <a href="https://www.fiawec.com/en/news/ferrari-crowned-fia-world-endurance-champions-in-bahrain/8545" target="_blank" rel="noopener">Read the 2025 title report ↗</a>
+                </article>
+            </div>
+
+            <div class="racing-timeline-heading">
+                <p class="section-small">MILESTONES</p>
+                <h3>Moments that made <span>history.</span></h3>
+            </div>
+
+            <div class="racing-timeline">
+                <article class="racing-moment">
+                    <span class="racing-year">1949</span>
+                    <div><h4>First Le Mans triumph</h4><p>Ferrari wins the 24 Hours of Le Mans for the first time with the 166 MM.</p></div>
+                </article>
+                <article class="racing-moment">
+                    <span class="racing-year">1951</span>
+                    <div><h4>First Formula 1 Grand Prix victory</h4><p>José Froilán González takes Ferrari's first World Championship Grand Prix win at Silverstone.</p></div>
+                </article>
+                <article class="racing-moment">
+                    <span class="racing-year">1952</span>
+                    <div><h4>First F1 Drivers' World Championship</h4><p>Alberto Ascari wins the title, beginning Ferrari's long championship story in Formula 1.</p></div>
+                </article>
+                <article class="racing-moment">
+                    <span class="racing-year">1965</span>
+                    <div><h4>Sixth Le Mans win in a row</h4><p>Ferrari takes its ninth overall Le Mans victory of the era, before its long absence from the top step.</p></div>
+                </article>
+                <article class="racing-moment">
+                    <span class="racing-year">1972</span>
+                    <div><h4>World Sportscar Championship dominance</h4><p>The Ferrari 312 PB wins the Manufacturers' World Sportscar Championship with victory in every round of its ten-race campaign.</p></div>
+                </article>
+                <article class="racing-moment">
+                    <span class="racing-year">2023</span>
+                    <div><h4>Back on top at Le Mans</h4><p>The #51 Ferrari 499P wins overall on the marque's return to the top category after 50 years away.</p></div>
+                </article>
+                <article class="racing-moment">
+                    <span class="racing-year">2024</span>
+                    <div><h4>Back-to-back at Le Mans</h4><p>The #50 499P takes the overall victory, giving Ferrari consecutive wins on its Hypercar return.</p></div>
+                </article>
+                <article class="racing-moment">
+                    <span class="racing-year">2025</span>
+                    <div><h4>A triple and a world title</h4><p>The #83 AF Corse 499P wins Le Mans for a third straight year, while Ferrari secures the WEC Manufacturers' and Drivers' championships.</p></div>
+                </article>
+            </div>
+
+            <div class="other-racing">
+                <p class="section-small">THE PRANCING HORSE BEYOND F1</p>
+                <h3>And the racing doesn't stop there.</h3>
+                <div class="other-racing-grid">
+                    <div><strong>IMSA</strong><p>Ferrari customer and factory-supported GT entries compete in North American sports-car racing, including endurance classics.</p></div>
+                    <div><strong>European & Asian Le Mans</strong><p>Ferrari machinery appears across regional endurance championships, with teams racing for class honours.</p></div>
+                    <div><strong>GT racing worldwide</strong><p>Ferrari Competizioni GT supports customer teams in international GT championships with cars such as the 296 GT3.</p></div>
+                </div>
+            </div>
+            <p class="motorsport-note">Championship figures and milestones shown here are historical highlights, not a live results feed. F1 title totals and WEC 2025 honours are based on the cited championship records.</p>
+        </div>
+    </section>
+
+
+    <!-- Ferrari 2026 newsroom -->
+    <section id="news" class="newsroom">
+        <div class="newsroom-hero">
+            <div class="newsroom-hero-inner">
+                <p class="news-kicker">THE PRANCING HORSE · SEASON 2026</p>
+                <h2>Ferrari <span>Newsroom</span></h2>
+                <p>One season. Two world championships. Every twist in red.</p>
+                <div class="news-focus"><span>FORMULA 1</span><i></i><span>WORLD ENDURANCE CHAMPIONSHIP</span></div>
+            </div>
+        </div>
+
+        <div class="newsroom-wrap">
+            <div class="newsroom-heading">
+                <div><p class="section-small">THE 2026 SEASON</p><h3>A season of <span>comebacks & challenges.</span></h3></div>
+                <p class="newsroom-intro">Our Ferrari season desk follows the big stories, breakthrough performances and difficult weekends across F1 and WEC.</p>
+            </div>
+
+            <div class="news-feature-grid">
+                <article class="news-feature news-feature-main">
+                    <div class="news-image news-image-hamilton"><span>FEATURE STORY</span></div>
+                    <div class="news-copy">
+                        <div class="news-meta"><b>FORMULA 1</b><time>16 JUNE 2026</time></div>
+                        <h4>Hamilton's Ferrari comeback: from a difficult 2025 to the top step again</h4>
+                        <p>After a challenging first season in red, Lewis Hamilton answered his critics in 2026. A winter reset, a new working relationship on the pit wall and growing confidence with the SF-26 helped put him back in the fight. His Barcelona victory delivered his first Grand Prix win for Ferrari.</p>
+                        <a href="https://www.formula1.com/en/latest/article/insight-hamiltons-remarkable-ferrari-transformation-from-absolutely-useless-to-grand-prix-winner-again.2ijc90zgwRndOvQ8CYjzqM" target="_blank" rel="noopener">Read the F1.com feature ↗</a>
+                    </div>
+                </article>
+
+                <article class="news-feature">
+                    <div class="news-image news-image-f1"><span>F1 · SEASON REVIEW</span></div>
+                    <div class="news-copy">
+                        <div class="news-meta"><b>FORMULA 1</b><time>9 NOVEMBER 2026</time></div>
+                        <h4>Ferrari's 2026 rollercoaster: flashes of pace, difficult weekends</h4>
+                        <p>There have been podiums and a memorable Hamilton win, but consistency has remained a challenge. São Paulo brought another tough weekend, with Hamilton and Leclerc taking only six points combined. The Scuderia still has work to do to turn its speed into reliable results.</p>
+                        <a href="https://www.formula1.com/en/latest/article/a-complete-disaster-leclerc-and-hamilton-lament-horrendous-ferrari-performance-in-sao-paulo.sdZmqEEwBaoAC8OmBxvYh" target="_blank" rel="noopener">Read the São Paulo report ↗</a>
+                    </div>
+                </article>
+
+                <article class="news-feature">
+                    <div class="news-image news-image-wec"><span>WEC · 499P</span></div>
+                    <div class="news-copy">
+                        <div class="news-meta"><b>WORLD ENDURANCE</b><time>7 SEPTEMBER 2026</time></div>
+                        <h4>Ferrari strikes back at COTA with #50 499P victory</h4>
+                        <p>Miguel Molina, Antonio Fuoco and Nicklas Nielsen brought Ferrari back to the top step at the Lone Star Le Mans. The #50 crew capitalised on a late-race twist and delivered a composed drive under pressure, reigniting Ferrari's 2026 title defence.</p>
+                        <a href="https://www.fiawec.com/en/news/toyota-s-pain-is-ferrari-s-gain-in-texan-thriller/13771" target="_blank" rel="noopener">Read the official FIA WEC report ↗</a>
+                    </div>
+                </article>
+            </div>
+
+            <div class="news-lower">
+                <div class="news-lower-heading">
+                    <p class="section-small">FOLLOW THE CAMPAIGNS</p>
+                    <h3>Two championships. <span>One Ferrari.</span></h3>
+                </div>
+                <div class="championship-panels">
+                    <a class="championship-panel" href="https://www.formula1.com/" target="_blank" rel="noopener">
+                        <span class="panel-label">01 / OPEN-WHEEL RACING</span><strong>Scuderia Ferrari<br>Formula 1</strong>
+                        <span class="panel-link">Official F1 coverage ↗</span>
+                    </a>
+                    <a class="championship-panel" href="https://www.fiawec.com/" target="_blank" rel="noopener">
+                        <span class="panel-label">02 / ENDURANCE RACING</span><strong>Ferrari AF Corse<br>WEC Hypercar</strong>
+                        <span class="panel-link">Official WEC coverage ↗</span>
+                    </a>
+                </div>
+            </div>
+            <p class="news-disclaimer">This is a curated 2026 season snapshot, not an automatically updating live feed. Story dates and summaries reflect the linked reports. New stories can be added as the season develops.</p>
+        </div>
+    </section>
 
     <!-- Evolution chart: all cars lined up by launch year -->
     <section id="evolution">
